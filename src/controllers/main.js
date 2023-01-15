@@ -1,9 +1,9 @@
 const bcryptjs = require('bcryptjs');
+
 const session = require('express-session');
 const { Op } = require("sequelize");
 
 const db = require('../database/models');
-const Author = require('../database/models/Author');
 
 const mainController = {
   home: (req, res) => {
@@ -15,18 +15,15 @@ const mainController = {
       })
       .catch((error) => console.log(error));
   },
-  bookDetail: (req, res) => {
+  bookDetail: async (req, res) => {
     // Implement look for details in the database
-    const { id } = req.params;
-    db.Book.findByPk(id, {
-      include: ['authors']
-    })
-      .then((book) => {
-        return res.render('bookDetail', {
-          book
-        });
-      })
-      .catch((error) => console.log(error))
+let category=req.cookies.user
+let id=req.params.id
+let datos=await db.Book.findAll({ where: id={id},include: [{ association: 'authors' }] });
+      
+res.render("bookDetail",{data:datos,category})
+    
+   
   },
   bookSearch: (req, res) => {
     res.render('search', { books: [] });
