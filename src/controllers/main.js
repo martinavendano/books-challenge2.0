@@ -51,9 +51,8 @@ res.render("bookDetail",{data:datos,category})
       .catch((error) => console.long(error))
   },
   deleteBook: async (req, res) => {
-    const dele = await db.Book.destroy({ where: { id: req.params.id } });
+    const deleteBook = await db.Book.destroy({ where: { id: req.params.id } });
     res.redirect("/")
-    
   },
   authors: (req, res) => {
     db.Author.findAll()
