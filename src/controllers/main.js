@@ -19,7 +19,11 @@ const mainController = {
     // Implement look for details in the database
 let category=req.cookies.user
 let id=req.params.id
-let datos=await db.Book.findAll({ where: id={id},include: [{ association: 'authors' }] });
+let datos=await 
+
+
+db.Book.findAll({ where: id={id},include:
+   [{ association: 'authors' }] });
       
 res.render("bookDetail",{data:datos,category})
     
